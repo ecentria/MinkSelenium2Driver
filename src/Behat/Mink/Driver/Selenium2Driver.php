@@ -381,10 +381,15 @@ class Selenium2Driver extends CoreDriver
             return;
         }
 
+        /**
+         * @see https://github.com/detro/ghostdriver/issues/365
+         */
         $cookieArray = array(
             'name'   => $name,
-            'value'  => (string) $value,
+            'value'  => urlencode($value),
             'secure' => false, // thanks, chibimagic!
+            'expiry' => time(), // Optional, but required for PhantomJS2
+            'domain' => parse_url($this->getCurrentUrl(), PHP_URL_HOST) // Optional, but required for PhantomJS2
         );
 
         $this->wdSession->setCookie($cookieArray);
