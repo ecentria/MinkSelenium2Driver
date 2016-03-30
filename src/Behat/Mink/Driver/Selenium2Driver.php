@@ -388,8 +388,8 @@ class Selenium2Driver extends CoreDriver
             'name'   => $name,
             'value'  => urlencode($value),
             'secure' => false, // thanks, chibimagic!
-            'expiry' => time(), // Optional, but required for PhantomJS2
-            'domain' => parse_url($this->getCurrentUrl(), PHP_URL_HOST) // Optional, but required for PhantomJS2
+            'path' => '/', // Optional, but required for PhantomJS2
+            'domain' => '.' . parse_url($this->getCurrentUrl(), PHP_URL_HOST) // Optional, but required for PhantomJS2
         );
 
         $this->wdSession->setCookie($cookieArray);
